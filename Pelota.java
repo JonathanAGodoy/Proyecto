@@ -8,7 +8,7 @@ public class Pelota {
 
     int diametroPelota = 31;
     int diametroSegundaPelota = 25;
-    int diametroTercerPelota = 15;
+    int diametroTerceraPelota = 15;
     int posicionXPelota = 0, posicionYPelota = 0;
     int direccionX = 1; // 1,1 se mueve hacia abajo y hacia la izquierda
     int direccionY = 1; // si es negativo se mueve hacia arriba
@@ -38,6 +38,14 @@ public class Pelota {
             direccionY = -1;
             posicionYPelota = juegoPelota.raqueta.altoEjeY() - diametroPelota;
         }
+        if (impactoSegundaPelotaConRaqueta()) {
+            direccionY = -1;
+            posicionYPelota = juegoPelota.raqueta.altoEjeY() - diametroSegundaPelota;
+        }
+        if (impactoTerceraPelotaConRaqueta()) {
+            direccionY = -1;
+            posicionYPelota = juegoPelota.raqueta.altoEjeY() - diametroTerceraPelota;
+        }
         if (impactoPelotaConObstaculo()) {
             direccionY *= -1;
             primerImpacto = 1;
@@ -57,6 +65,12 @@ public class Pelota {
     public boolean impactoPelotaConRaqueta() {
         return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionPelota());
     }
+    public boolean impactoSegundaPelotaConRaqueta() {
+        return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionSegundaPelota());
+    }
+    public boolean impactoTerceraPelotaConRaqueta() {
+        return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionTeceraPelota());
+    }
 
     public boolean impactoPelotaConObstaculo() {
         return juegoPelota.obstaculo.interseccionObstaculo().intersects(interseccionPelota());
@@ -67,7 +81,7 @@ public class Pelota {
     }
 
     public boolean impactoPelotaConTercerObstaculo() {
-        return juegoPelota.tercerObstaculo.interseccionTercerObstaculo().intersects(interseccionTecerPelota());
+        return juegoPelota.tercerObstaculo.interseccionTercerObstaculo().intersects(interseccionTeceraPelota());
     }
 
     public void pintarPelota(Graphics2D gPelota) {
@@ -82,7 +96,7 @@ public class Pelota {
 
     public void pintarTerceraPelota(Graphics2D gPelota) {
         gPelota.setColor(Color.black);
-        gPelota.fillOval(posicionXPelota, posicionYPelota, diametroTercerPelota, diametroTercerPelota);
+        gPelota.fillOval(posicionXPelota, posicionYPelota, diametroTerceraPelota, diametroTerceraPelota);
     }
 
     public Rectangle interseccionPelota() {
@@ -93,7 +107,7 @@ public class Pelota {
         return new Rectangle(posicionXPelota, posicionYPelota, diametroSegundaPelota, diametroSegundaPelota);
     }
 
-    public Rectangle interseccionTecerPelota() {
-        return new Rectangle(posicionXPelota, posicionYPelota, diametroTercerPelota, diametroTercerPelota);
+    public Rectangle interseccionTeceraPelota() {
+        return new Rectangle(posicionXPelota, posicionYPelota, diametroTerceraPelota, diametroTerceraPelota);
     }
 }
