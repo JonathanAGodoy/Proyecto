@@ -7,9 +7,14 @@ import java.awt.Rectangle;
 public class Pelota {
 
     int diametroPelota = 31;
+    int diametroSegundaPelota = 25;
+    int diametroTercerPelota = 15;
     int posicionXPelota = 0, posicionYPelota = 0;
     int direccionX = 1; // 1,1 se mueve hacia abajo y hacia la izquierda
     int direccionY = 1; // si es negativo se mueve hacia arriba
+    int primerImpacto = 0;
+    int impactoEnSegundoObjeto = 0;
+    int segundoImpactoEnSegundoObjeto = 0;
     private Juego juegoPelota;
 
     public Pelota(Juego juego) {
@@ -35,25 +40,60 @@ public class Pelota {
         }
         if (impactoPelotaConObstaculo()) {
             direccionY *= -1;
+            primerImpacto = 1;
+        }
+        if (impactoPelotaConSegundoObstaculo()) {
+            direccionY *= -1;
+            impactoEnSegundoObjeto = 1;
+        }
+        if (impactoPelotaConTercerObstaculo()) {
+            direccionY *= -1;
+            segundoImpactoEnSegundoObjeto = 1;
         }
         posicionXPelota = posicionXPelota + direccionX;
         posicionYPelota = posicionYPelota + direccionY;
     }
 
     public boolean impactoPelotaConRaqueta() {
-        return juegoPelota.raqueta.getBounds().intersects(getBounds());
+        return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionPelota());
     }
 
     public boolean impactoPelotaConObstaculo() {
-        return juegoPelota.obstaculo.getBounds().intersects(getBounds());
+        return juegoPelota.obstaculo.interseccionObstaculo().intersects(interseccionPelota());
+    }
+
+    public boolean impactoPelotaConSegundoObstaculo() {
+        return juegoPelota.segundoObstaculo.interseccionSegundoObstaculo().intersects(interseccionSegundaPelota());
+    }
+
+    public boolean impactoPelotaConTercerObstaculo() {
+        return juegoPelota.tercerObstaculo.interseccionTercerObstaculo().intersects(interseccionTecerPelota());
     }
 
     public void pintarPelota(Graphics2D gPelota) {
-        gPelota.fillOval(posicionXPelota, posicionYPelota, diametroPelota, diametroPelota);
         gPelota.setColor(Color.RED);
+        gPelota.fillOval(posicionXPelota, posicionYPelota, diametroPelota, diametroPelota);
     }
 
-    public Rectangle getBounds() {
+    public void pintarSegundaPelota(Graphics2D gPelota) {
+        gPelota.setColor(Color.gray);
+        gPelota.fillOval(posicionXPelota, posicionYPelota, diametroSegundaPelota, diametroSegundaPelota);
+    }
+
+    public void pintarTerceraPelota(Graphics2D gPelota) {
+        gPelota.setColor(Color.black);
+        gPelota.fillOval(posicionXPelota, posicionYPelota, diametroTercerPelota, diametroTercerPelota);
+    }
+
+    public Rectangle interseccionPelota() {
         return new Rectangle(posicionXPelota, posicionYPelota, diametroPelota, diametroPelota);
+    }
+
+    public Rectangle interseccionSegundaPelota() {
+        return new Rectangle(posicionXPelota, posicionYPelota, diametroSegundaPelota, diametroSegundaPelota);
+    }
+
+    public Rectangle interseccionTecerPelota() {
+        return new Rectangle(posicionXPelota, posicionYPelota, diametroTercerPelota, diametroTercerPelota);
     }
 }
