@@ -8,7 +8,8 @@ import java.awt.event.KeyEvent;
 public class Raqueta {
 
     int nivelRaqueta = 650;
-    int ancho = 55, alto = 8;
+    int anchoRaqueta = 55;
+    int altoRaqueta = 8;
     int posicionRaqueta1 = 0;
     int posicionRaqueta2 = 0;
     Juego juegoRaqueta;
@@ -18,13 +19,13 @@ public class Raqueta {
     }
 
     public void moverRaqueta() {
-        if (posicionRaqueta1 + posicionRaqueta2 > 0 && posicionRaqueta1 + posicionRaqueta2 < juegoRaqueta.getWidth() - ancho) {
+        if (posicionRaqueta1 + posicionRaqueta2 > 0 && posicionRaqueta1 + posicionRaqueta2 < juegoRaqueta.getWidth() - anchoRaqueta) {
             posicionRaqueta1 = posicionRaqueta1 + posicionRaqueta2;
         }
     }
 
     public void pintarRaqueta(Graphics2D gRaqueta) {
-        gRaqueta.fillRect(posicionRaqueta1, nivelRaqueta, ancho, alto);
+        gRaqueta.fillRect(posicionRaqueta1, nivelRaqueta, anchoRaqueta, altoRaqueta);
         gRaqueta.setColor(Color.yellow);
     }
 
@@ -41,11 +42,12 @@ public class Raqueta {
         }
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(posicionRaqueta1, nivelRaqueta, ancho, alto);
+    public Rectangle getBoundsRaquetaDimension() {
+        return new Rectangle(posicionRaqueta1, nivelRaqueta, anchoRaqueta, altoRaqueta);
     }
 
     public int altoEjeY() {
-        return nivelRaqueta - alto;
+        return nivelRaqueta - altoRaqueta;
     }
 }
+
