@@ -9,19 +9,24 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Juego extends JPanel {
 
     Pelota pelota = new Pelota(this);
     Pelota segundaPelota = new Pelota(this);
-    Pelota tercerPelota = new Pelota(this);
+    Pelota terceraPelota = new Pelota(this);
     Raqueta raqueta = new Raqueta(this);
     Obstaculo obstaculo = new Obstaculo(this);
     Obstaculo segundoObstaculo = new Obstaculo(this);
     Obstaculo tercerObstaculo = new Obstaculo(this);
     int moverSegundaPelota = 0;
     int moverTercerPelota = 0;
-
+    Timer tiempo= new Timer();
+    int segundos = 0;
+    boolean detener;
+    
     public void paint(Graphics g) {
         super.paint(g); // borra
         Graphics2D g2d = (Graphics2D) g;
@@ -37,7 +42,7 @@ public class Juego extends JPanel {
             moverSegundaPelota = 1;
         }
         if ((pelota.segundoImpactoEnSegundoObjeto == 1) || (segundaPelota.segundoImpactoEnSegundoObjeto == 1)) {
-            tercerPelota.pintarTerceraPelota(g2d);
+            terceraPelota.pintarTerceraPelota(g2d);
             moverTercerPelota = 1;
         }
     }
@@ -49,7 +54,7 @@ public class Juego extends JPanel {
             segundaPelota.moverPelota();
         }
         if (moverTercerPelota == 1) {
-            tercerPelota.moverPelota();
+            terceraPelota.moverPelota();
         }
     }
 
@@ -71,11 +76,12 @@ public class Juego extends JPanel {
     }
 
     public void errar() {
-        JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showMessageDialog(this, "Game Over\n"
+                + "duraste "+segundos+" segundos", "Game Over", JOptionPane.YES_NO_OPTION);
         // agregar un duraste tantos segundos
         pelota = null;
         segundaPelota = null;
-        tercerPelota = null;
+        terceraPelota = null;
         raqueta = null;
         obstaculo = null;
         segundoObstaculo = null;
