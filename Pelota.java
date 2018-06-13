@@ -38,11 +38,11 @@ public class Pelota {
             direccionY = -1;
             posicionYPelota = juegoPelota.raqueta.altoEjeY() - diametroPelota;
         }
-        if (impactoSegundaPelotaConRaqueta()) {
+        if (impactoPelotaConRaqueta2()) {
             direccionY = -1;
             posicionYPelota = juegoPelota.raqueta.altoEjeY() - diametroSegundaPelota;
         }
-        if (impactoTerceraPelotaConRaqueta()) {
+        if (impactoPelotaConRaqueta3()) {
             direccionY = -1;
             posicionYPelota = juegoPelota.raqueta.altoEjeY() - diametroTerceraPelota;
         }
@@ -65,11 +65,11 @@ public class Pelota {
     public boolean impactoPelotaConRaqueta() {
         return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionPelota());
     }
-    public boolean impactoSegundaPelotaConRaqueta() {
+    public boolean impactoPelotaConRaqueta2() {
         return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionSegundaPelota());
     }
-    public boolean impactoTerceraPelotaConRaqueta() {
-        return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionTeceraPelota());
+    public boolean impactoPelotaConRaqueta3() {
+        return juegoPelota.raqueta.getBoundsRaquetaDimension().intersects(interseccionTecerPelota());
     }
 
     public boolean impactoPelotaConObstaculo() {
@@ -81,7 +81,7 @@ public class Pelota {
     }
 
     public boolean impactoPelotaConTercerObstaculo() {
-        return juegoPelota.tercerObstaculo.interseccionTercerObstaculo().intersects(interseccionTeceraPelota());
+        return juegoPelota.tercerObstaculo.interseccionTercerObstaculo().intersects(interseccionTecerPelota());
     }
 
     public void pintarPelota(Graphics2D gPelota) {
@@ -107,7 +107,7 @@ public class Pelota {
         return new Rectangle(posicionXPelota, posicionYPelota, diametroSegundaPelota, diametroSegundaPelota);
     }
 
-    public Rectangle interseccionTeceraPelota() {
+    public Rectangle interseccionTecerPelota() {
         return new Rectangle(posicionXPelota, posicionYPelota, diametroTerceraPelota, diametroTerceraPelota);
     }
 }
